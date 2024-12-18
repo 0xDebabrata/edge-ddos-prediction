@@ -15,6 +15,7 @@ import numpy as np
 import ipaddress
 
 import torch.nn as nn
+
 # import torch.optim as optim
 # from torch.utils.data import Dataset, DataLoader
 # import pandas as pd
@@ -22,6 +23,7 @@ import torch.nn as nn
 # from sklearn.preprocessing import StandardScaler
 # from sklearn.model_selection import train_test_split
 import ipaddress
+
 
 class DDoSTransformer(nn.Module):
     def __init__(
@@ -70,6 +72,7 @@ class DDoSTransformer(nn.Module):
         x = self.output_layer(x)
 
         return x
+
 
 class ModelInference:
     def __init__(self, model_path, device=None):
@@ -172,9 +175,13 @@ class Switch(app_manager.RyuApp):
 
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             # self.device = torch.device('cpu')
-            model_path = 'sdn/best_model.pth'
+            model_path = "sdn/best_model.pth"
             inference = ModelInference(model_path, self.device)
-            print("INFERENCE", inference.predict(input_data))
+            result = inference.predict(input_data)
+            # convert to softmax probabilities
+            result = torch.nn.functional.softmax(result, dim=1)
+
+            print("INFERENCE", result)
 
         dst = eth.dst
         src = eth.src
