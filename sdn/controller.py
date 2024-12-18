@@ -8,7 +8,7 @@ from ryu.lib.packet import ipv4, packet
 from ryu.lib.packet import ethernet
 from ryu.lib.packet import ether_types
 
-from sdn.DrDos_model import DDoSTransformer
+#from sdn.DrDos_model import DDoSTransformer
 
 import torch
 import numpy as np
@@ -175,7 +175,7 @@ class Switch(app_manager.RyuApp):
 
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             # self.device = torch.device('cpu')
-            model_path = "sdn/best_model.pth"
+            model_path = "./best_model.pth"
             inference = ModelInference(model_path, self.device)
             result = inference.predict(input_data)
             # convert to softmax probabilities
