@@ -19,14 +19,18 @@ def customNet():
     )
 
     info("Adding hosts\n")
-    h1, h2, h3 = [net.addHost(h) for h in ("h1", "h2", "h3")]
+    h1, h2, h3, h4, h5, h6, h7, h8, h9, h10 = [net.addHost(h) for h in ("h1", "h2", "h3", "h4", "h5", "h6", "h7", "h8", "h9", "h10")]
 
     info("Adding switches\n")
     s1 = net.addSwitch("s1")
+    s2 = net.addSwitch("s2")
 
     info("Adding switch links\n")
-    for h in [h1, h2, h3]:
+    for h in [h1, h2, h3, h4, h5]:
         net.addLink(h, s1)
+
+    for h in [h6, h7, h8, h9, h10]:
+        net.addLink(h, s2)
 
     info("Starting network\n")
     net.start()
