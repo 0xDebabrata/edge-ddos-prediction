@@ -27,10 +27,10 @@ def customNet():
     s2 = net.addSwitch("s2")
 
     info("Adding switch links\n")
-    for h in hosts[:n_hosts/2]:
+    for h in hosts[:int(n_hosts/2)]:
         net.addLink(h, s1)
 
-    for h in hosts[n_hosts/2:]:
+    for h in hosts[int(n_hosts/2):]:
         net.addLink(h, s2)
 
     net.addLink(s1, s2)
